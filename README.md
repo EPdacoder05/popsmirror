@@ -86,5 +86,3 @@ terraform destroy -auto-approve
 4. Push to the branch
 5. Create a Pull Request
 
-## License
-Proprietary - All Rights Reserved
