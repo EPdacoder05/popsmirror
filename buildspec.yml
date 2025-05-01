@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - pip install boto3 locust
+  build:
+    commands:
+      - terraform init
+      - terraform apply -auto-approve
+      - python compliance.py
+      - locust -f locustfile.py --headless -u 500 -r 50 -t 5m
+  post_build:
+    commands:
+      - terraform destroy -auto-approve
