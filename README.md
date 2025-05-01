@@ -72,17 +72,3 @@ locust -f locustfile.py --headless -u 500 -r 50
 ```bash
 terraform destroy -auto-approve
 ```
-
-## Security Notes
-- Never commit `terraform.tfvars` with real values
-- Always use MFA when accessing AWS
-- Regularly rotate AWS access keys
-- Monitor CloudTrail logs for unauthorized access attempts
-
-## Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
