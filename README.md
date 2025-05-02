@@ -1,7 +1,7 @@
 # POPSMirror - Secure Performance Testing Environment
 
 ## Overview (Disclaimer this is a conceptual project that needs tailored schema and specified test cases for your organization)
-POPSMirror creates a secure testing environment that mirrors production for healthcare applications, while maintaining HIPAA compliance and security controls. This solution provides a standardized, safe way to test changes before production deployment, addressing the core issues of outdated test environments and inconsistent testing practices.
+POPSMirror creates a standardized and isolated testing environment that mirrors production for healthcare applications, while maintaining HIPAA compliance and security controls. This solution provides a standardized, safe way to test changes before production deployment, addressing the core issues of outdated test environments and inconsistent testing practices.
 
 ### Core Purpose
 - Creates an automated, secure testing environment that mirrors production
