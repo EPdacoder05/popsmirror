@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POPSMirror Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>POPSMirror Dashboard</h1>
+    <p>Run compliance checks and performance tests below:</p>
+
+    <!--
+    UI Buttons:
+    - App Developers: Run Locust performance tests for app endpoints.
+    - Security Engineers: Run compliance checks (EBS, S3).
+    - Data Engineers: Run Locust tests for data workflows.
+    -->
+    <button class="button" onclick="runCheck('/check_ebs')">Check EBS Encryption</button>
+    <button class="button" onclick="runCheck('/check_s3')">Check S3 Encryption</button>
+    <button class="button" onclick="runLocust()">Run Performance Test</button>
+
+    <div id="result" class="result" style="display: none;"></div>
+
+    <script>
+        async function runCheck(endpoint) {
+            const resultDiv = document.getElementById("result");
+            resultDiv.style.display = "none";
+            resultDiv.innerHTML = "Running check...";
+            resultDiv.style.display = "block";
+
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                resultDiv.innerHTML = `<strong>Status:</strong> ${data.status}<br>${JSON.stringify(data)}`;
+                resultDiv.style.borderColor = data.status === "PASS" ? "green" : "red";
+            } catch (error) {
+                resultDiv.innerHTML = `<strong>Status:</strong> ERROR<br>${error.message}`;
+                resultDiv.style.borderColor = "orange";
+            }
+        }
+
+        async function runLocust() {
+            const resultDiv = document.getElementById("result");
+            resultDiv.style.display = "none";
+            resultDiv.innerHTML = "Running performance test...";
+            resultDiv.style.display = "block";
+
+            try {
+                const response = await fetch("/run_locust", { method: "POST" });
+                const data = await response.json();
+                resultDiv.innerHTML = `<strong>Status:</strong> ${data.status}<br>${data.output || data.message}`;
+                resultDiv.style.borderColor = data.status === "SUCCESS" ? "green" : "red";
+            } catch (error) {
+                resultDiv.innerHTML = `<strong>Status:</strong> ERROR<br>${error.message}`;
+                resultDiv.style.borderColor = "orange";
+            }
+        }
+    </script>
+</body>
+</html>
